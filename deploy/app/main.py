@@ -1,7 +1,10 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
 import lookup_concept, query_network
-
+st.set_page_config(
+    page_title="EduMap: Study Area Explorer",  
+    page_icon="📚",  
+)
 
 with st.sidebar:
     selected = option_menu(
@@ -35,7 +38,7 @@ if selected == "Home":
     """
     **EduMap** is an interactive tool for exploring connections between academic concepts and study areas.  
     For example, a subject like *American Urban History* might link to *Sociology* or indirectly relate to *English Local History*.  
-    
+
     With EduMap, you can visually discover and interpret these relationships through a dynamic concept network.
     """
 )
