@@ -26,7 +26,7 @@ def show():
         return
     
     
-    st.success(f"You selected: **{display_option}**")
+    #st.success(f"You selected: **{display_option}**")
     
     option = display_option.replace(' ','_')
     center_uri = f"http://dbpedia.org/resource/{option}"
@@ -133,8 +133,8 @@ def show():
                     edge_pairs.add((val, center_uri))
 
     config = Config(
-        width=900,
-        height=700,
+        width=800,
+        height=650,
         directed=True,
         hierarchical=False,
         physics=True,
@@ -182,14 +182,15 @@ def show():
                 st.rerun()
          else:
             return_value = agraph(nodes=nodes, edges=edges, config=config)
+            if return_value:
+                node_uri = return_value
+                node_label = node_uri.split("/")[-1]
 
     if st.session_state["show_node_info"] and col2:
         with col2:
-            st.subheader("📝 Concept Info")
             if return_value and isinstance(return_value, str):
-                node_uri = return_value
-                node_label = node_uri.split("/")[-1]
-                st.success(f"🧠 **{node_label.replace('_',' ')}**")
+                st.subheader(f"📝 {node_label.replace('_',' ')}")
+                #st.success(f"🧠 **{node_label.replace('_',' ')}**")
                 st.markdown(f"[🌐 View on DBpedia]({node_uri})")
                 info = sparql.query_info(node_label)
                 thumbnail = sparql.query_thumbnail(node_uri)
@@ -199,7 +200,12 @@ def show():
                 if isinstance(abstract, list):
                     abstract = abstract[0]
                 if abstract:
-                    st.markdown("#### 📖 Abstract")
+                    st.markdown("##### 📖 Abstract")
+                    abstract_limit = 250
+                    if len(abstract) > abstract_limit:
+                        abstract = abstract[:250] + '...'
                     st.write(abstract)
+                    wikipedia_link = f'https://en.wikipedia.org/wiki/{node_label}'
+                    st.markdown(f'[read full article (wikipedia)]({wikipedia_link})')
             else:
                 st.write("Click a node to see its info here.")
