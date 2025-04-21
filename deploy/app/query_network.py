@@ -1,10 +1,11 @@
 import streamlit as st
 from streamlit_agraph import agraph, Node, Edge, Config
 from utilities import sparql
+import time
 import json
 
 def show():
-    st.title("📄 Study Concept Networks")
+    st.title("🌐 Study Concept Networks")
 
     # Load study terms once
     if "study_terms" not in st.session_state:
@@ -170,7 +171,17 @@ def show():
         col2 = None
 
     with col1:
-        return_value = agraph(nodes=nodes, edges=edges, config=config)
+         if "graph_ready" not in st.session_state:
+            st.session_state.graph_ready = False
+ 
+         if not st.session_state.graph_ready:
+            with st.spinner("🔄 Preparing graph..."):
+                # This simulates some backend prep delay
+                time.sleep(1)  # Optional delay to simulate rendering
+                st.session_state.graph_ready = True
+                st.rerun()
+         else:
+            return_value = agraph(nodes=nodes, edges=edges, config=config)
 
     if st.session_state["show_node_info"] and col2:
         with col2:
