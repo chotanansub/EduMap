@@ -42,7 +42,7 @@ if selected == "Home":
     With EduMap, you can visually discover and interpret these relationships through a dynamic concept network.
     """
 )
-    st.video("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+    st.video("https://www.youtube.com/watch?v=SgP56sZS3NU")
 elif selected == "Concept Look Up":
     lookup_concept.show()
 elif selected == "Concept Query":
