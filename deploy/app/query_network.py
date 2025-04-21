@@ -17,12 +17,17 @@ def show():
         with open("deploy/app/data/relation_labels.json", "r") as f:
             st.session_state.relation_labels = json.load(f)
 
-    option = st.selectbox(f"🔍 Search from {len(st.session_state.study_terms)} concepts", (None, *st.session_state.study_terms))
-    if option is None:
+
+    display_option_list = [op.replace('_',' ') for op in st.session_state.study_terms]
+    display_option = st.selectbox(f"🔍 Search from {len(st.session_state.study_terms)} concepts", (None, *display_option_list))
+    if display_option is None:
         st.info("Please select a concept to view.")
         return
-    st.success(f"You selected: **{option}**")
-
+    
+    
+    st.success(f"You selected: **{display_option}**")
+    
+    option = display_option.replace(' ','_')
     center_uri = f"http://dbpedia.org/resource/{option}"
 
     with st.expander("⚙️ Graph Configuration"):
