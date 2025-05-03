@@ -1,4 +1,4 @@
-# EduMap: Interactive Study Area Network from DBpedia
+# [EduMap: Interactive Study Area Network from DBpedia](https://github.com/chotanansub/EduMap)
 
 🧑🏻‍💻 **Project Author:** Chotanansub Sophaken  
 📚 **Course:** CS 43016 – Big Data Analytics  
